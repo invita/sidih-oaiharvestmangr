@@ -1,0 +1,189 @@
+#* Copyright 2005-2012, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="content-language" content="sl">
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="stylesheet" type="text/css" media="all" href="./css/layout_2col_73.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="./css/home.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
+  <title>$text.title</title>
+
+  <!-- This software uses JSCalendar from http://www.dynarch.com/projects/calendar/
+       it is cool and LGPL licenced. Thanks to its programmers. -->
+  <!-- calendar stylesheet -->
+  <link rel="stylesheet" type="text/css" media="all" href="./js/jscalendar/calendar-win2k-cold-1.css" title="win2k-cold-1" />
+
+  <!-- proxy to appserver settings in web.xml -->
+  <script type="text/javascript" src="app.js"></script>
+
+
+  <!-- main calendar program -->
+  <script type="text/javascript" src="./js/jscalendar/calendar.js"></script>
+
+  <!-- language for the calendar -->
+  <script type="text/javascript" src="./js/jscalendar/lang/calendar-de.js"></script>
+
+  <!-- the following script defines the Calendar.setup helper function, which makes
+       adding a calendar a matter of 1 or 2 lines of code. -->
+  <script type="text/javascript" src="./js/jscalendar/calendar-setup.js"></script>
+  
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  
+  <script type="text/javascript" src="./js/lang.js"></script>
+  
+</head>
+
+<body>	
+
+
+<div id="lang">
+ <select id="langChange">
+  <option value="en">English</option>
+  <option value="de">Deutsch</option>
+  <option value="sl">Slovenščina</option>
+</select>
+ </div>	
+
+ <div id="header">
+  <div class="header_logo">
+    <a href="http://www.sidih.si" shape="rect" target="_blank">
+      <img src="http://www.sidih.si/images/logo.png" width="457" height="104">
+    </a>
+  </div>
+  
+  <div class="header_clear"> </div>
+  
+  <div class="header_banner">
+  </div>
+ </div>
+ 
+  <br/>
+  <br/>
+  #set($space = 3)
+  #set($width = 60)
+
+  <h1>$text.title</h1>
+  <br/>
+  <p>
+  <!-- First icon of the menu: Show Tasks-->
+  <a href="index.htm?method=showTasks">
+  <img alt="$text.current.queue"
+       title="$text.current.queue"
+       src="./icons/mTaskList.png"
+       width="$width" /></a>
+  
+  <!-- space and Show History icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="index.htm?method=showHistory">
+  <img alt="$text.status.lastrun"
+       title="$text.status.lastrun"
+       src="./icons/mHistory.png"
+       width="$width" /></a>
+
+  <!-- space and Show Repositories icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="index.htm?method=showRepositories">
+  <img alt="$text.list.allrepos"
+       title="$text.list.allrepos"
+       src="./icons/mRepositoryList.png"
+       width="$width" /></a>
+  
+  <!-- space and Problematic Servers icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="index.htm?method=showProblematicServers">
+  <img alt="$text.problems.list"
+       title="$text.problems.list"
+       src="./icons/mProblemServers.png"
+       width="$width" /></a>
+  
+  <!-- space and Add Task icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="index.htm?method=addTaskForm">
+  <img alt="$text.add.harvest.job"
+       title="$text.add.harvest.job"
+       src="./icons/mNewTask.png"
+       width="$width" /></a>
+   
+  <!-- space and GetRecord icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="index.htm?method=getRecordForm">
+  <img alt="$text.add.harvest.query"
+       title="$text.add.harvest.query"
+       src="./icons/mGetRecord.png"
+       width="$width" /></a>
+   
+  <!-- space and New Repository icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="index.htm?method=newRepositoryForm">
+  <img alt="$text.add.harvest.repo"
+       title="$text.add.harvest.repo"
+       src="./icons/mNewRepository.png"
+       width="$width" /></a>
+
+  <!-- space and Reload icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="javascript:window.location.reload()">
+  <img alt="$text.page.refresh"
+       title="$text.page.refresh"
+       src="./icons/mRefresh.png"
+       width="$width" /></a>
+       
+  <!-- space and Garbage Collector icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="index.htm?method=startGC">
+  <img alt="$text.clear.all.data"
+       title="$text.clear.all.data"
+       src="./icons/mGarbageCollector.png"
+       width="$width" /></a>
+  
+  <!-- space and HomePage icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="http://oaiharvestmangr.sourceforge.net/" target="_blank">
+  <img alt="$text.oai.home.page"
+       title="$text.oai.home.page"
+       src="./icons/mHome.png"
+       width="$width" /></a>
+
+  <!-- space and Documentation icon -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="http://oaiharvestmangr.sourceforge.net/doc/guibasics.html" target="_blank">
+  <img alt="$text.docs.page"
+       title="$text.docs.page"
+       src="./icons/mDocumentation.png"
+       width="$width" /></a>
+
+  <!-- space and JavaDoc icon    -->
+  <img alt="" src="./icons/transparent.png" width="$space"/>
+  <a href="http://oaiharvestmangr.sourceforge.net/javadoc/index.html" target="_blank">
+  <img alt="Java-Doc"
+       title="Java-Doc"
+       src="./icons/mJavaDoc.png"
+       width="$width" /></a>
+
+</p>
+<br/>
+<br/>
+#set($width = 32)

@@ -1,0 +1,45 @@
+/* Cascading Stylesheet for Die Deutsche Bibliothek */
+/* as per request the CSS-file is mapped in english */
+/* 3-point concepts: Stephan Betke - 25.04.2006 */
+
+/* Stylesheets for Home */
+
+/* Headlines */
+h1 {color:#576072; font-family:times new roman ,serif; font-size:1.6em; font-weight:normal; letter-spacing:0.15em; line-height:120%; margin:0 0 0.1em 0; padding:0; text-transform:uppercase;}
+h2 {color:#576072; font-family:verdana,arial,sans-serif; font-size:1em; line-height:120%; margin:0 0 0.1em 0; padding:0; }
+h3 {color:#000000; font-family:verdana,arial,sans-serif; font-size:1em; line-height:120%; margin:0; padding:0;}
+h1 a:link, h1 a:visited, h1 a:hover, h1 a:focus {color:#576072; text-decoration:none;}
+h2 a:link, h2 a:visited, h2 a:hover, h2 a:focus {color:#576072; text-decoration:none;}
+h3 a:link, h3 a:visited, h3 a:hover, h3 a:focus {color:#000000; text-decoration:none;}
+.chapter h2 {margin:0 0 15px 0;}
+.chapter h3 {font-size:1em; font-weight:normal; margin:-15px 0 15px 0; padding:0;}
+
+/* Page-Specific Stylesheets-Classes */
+.searchform {background:#FFFAC3; border-bottom:#C3C2AD 1px solid; border-top:#C3C2AD 1px solid; margin:0 0 18px 0; padding:8px;}
+.chapter {border:#9EADD6 1px solid; clear:both; margin:0 0 18px 0; padding:18px 18px 19px 18px;}
+* html .chapter {padding:18px;}
+.chapter img {float:left; margin:0 18px 0 0;}
+.chapter .chapter_button img {border:0; float:none; margin:1px -18px 0 0;}
+* .chapter .chapter_button img {border:0; float:none; margin:0 -18px 0 0; position:relative;}
+.chapter p {margin:0 18px 0 180px;}
+span {display:block; margin-bottom:15px;}
+
+.chapter_button {border:0; float:right; line-height:0px; margin:0 0 10px 0; padding:0;}
+.news_chapter {border-top:#9EADD6 1px solid; clear:both; margin:0 0 30px 0;}
+.news_chapter_head {float:left; line-height:0px; margin:0 2px 0 0; padding:0;}
+.news_chapter_body {margin:3px 0 0 0;}
+
+div#lang {
+display: none;
+	position: fixed;
+	top: 10px;
+	right: 185px;
+	width: 120px;
+}
+
+ div#lang select#langChange {
+	padding: 5px; 
+ }
+ 
+img[name*='pic_Trash'] { 	display: none; } 
+img[name*='pic_DeleteRequest'] { 	display: none; } 

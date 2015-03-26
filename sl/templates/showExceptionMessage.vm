@@ -1,0 +1,39 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+<html>
+
+ <head>
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+  <title> $text.errpage.title </title>
+ </head>
+ <body>
+   <h3>$text.errpage.origreq</h3>
+   <tt>
+    <a href="$oaiRequest.requestAsString" target="_blank">$oaiRequest.requestAsString</a>
+   </tt>
+   
+   <h3>$text.errpage.at $oaiRequest.finishedAt</h3>
+   <pre><code>$!oaiRequest.exceptionMessage.replaceAll('<', "&lt;")</code></pre>
+ </body>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-lazy="false">
+
+  <!-- Object Request -->
+  <class name="de.dnb.oai.harvester.task.Request" table="request">
+    <id name="requestId" type="long" unsaved-value="null">
+      <column name="requestId" />
+      <generator class="hilo" />
+    </id>
+    <timestamp name="lastModified" />
+    <property  name="startedAt"        type="timestamp" />
+    <property  name="finishedAt"       type="timestamp" />
+    <property  name="fromDate"         type="timestamp" />
+    <property  name="untilDate"        type="timestamp" />
+    <property  name="responseDate"     type="timestamp" />
+    <property  name="status"           type="int" />
+    <property  name="requestAsString"  type="string" length="500" />
+    <property  name="totalRecords"     type="int" />
+    <property  name="recordsHarvested" type="int" />
+    <property  name="serverResponse"   type="string" length="200000" />
+    <property  name="exceptionMessage" type="string" length="5000" />
+  </class>
+
+  <!-- Object Repository -->
+  <class name="de.dnb.oai.repository.Repository" table="repository">
+    <id name="repositoryId" type="long" unsaved-value="null">
+      <column name="repositoryId" />
+      <generator class="hilo" />
+    </id>
+    <timestamp name="lastModified" />
+    <property name="repositoryName"     type="string" length="200" />
+    <property name="baseUrl"            type="string" length="200" column="baseURL"/>
+    <property name="connectionDelay"    type="int" />
+    <property name="hasFineGranularity" type="boolean" />
+    <property name="lastKnownGood"      type="timestamp" />
+    <property name="maxNumberOfRetries" type="int" />
+    <property name="numberOfErrors"     type="int" />
+    <property name="socketTimeout"      type="int" />
+    <property name="strictHTTP"         type="boolean" />
+  </class>
+
+  <!-- Object Task -->
+  <class name="de.dnb.oai.harvester.task.OaiTask" table="task">
+    <id name="taskId" type="long" unsaved-value="null">
+      <column name="taskId" />
+      <generator class="hilo" />
+    </id>
+    <timestamp   name="lastModified" />
+    <many-to-one name="repository" class="de.dnb.oai.repository.Repository" />
+    <many-to-one name="request" cascade="all" class="de.dnb.oai.harvester.task.Request" />
+    <property    name="startDate"           type="timestamp" />
+    <property    name="verb"                type="string"/>
+    <property    name="identifier"          type="string"/>
+    <property    name="set" column="oaiSet" type="string"/>
+    <property    name="metadataPrefix"      type="string"/>
+    <property    name="exportHandlerId"     type="int"    column="dataReceiverId"/>
+    <property    name="runInterval"         type="int" />
+    <property    name="validateOaiResponse" type="boolean" />
+    <property    name="validateRecords"     type="boolean" />
+    <property    name="saveResponse"        type="boolean" />
+    <list name="processedRequests" cascade="all, delete-orphan">
+      <key column="taskId" />
+      <list-index />
+      <one-to-many class="de.dnb.oai.harvester.task.Request" />
+    </list>
+  </class>
+  
+  <!-- Object TaskStopRequest -->
+  <class name="de.dnb.oai.harvester.task.OaiTaskStopRequest" table="taskStopRequest">
+    <id name="taskStopRequestId" type="long" unsaved-value="null">
+      <column name="taskStopRequestId" />
+      <generator class="hilo" />
+    </id>
+    <property    name="taskId"      type="long" />
+  </class>
+  
+</hibernate-mapping>

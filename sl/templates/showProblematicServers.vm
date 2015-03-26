@@ -1,0 +1,96 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+#parse("header.vm")
+<div class="chapter">
+<h2>$text.problems.title</h2>
+<br/>
+
+<table border="1"  width="100%">
+<tr>
+	<th width="60%">$text.repos.url</th>
+    <th width="20%">$text.history.status</th>
+    <th width="20%">$text.jobtbl.action</th>
+</tr>
+
+#set ($src = "SPS")
+#set ($anchor = "#12")
+
+#foreach($repository in $repositoryList)
+ #if ($repository.getNumberOfErrors() >= 5)
+ <tr>
+    <td>
+    	<small>
+    		<a href="index.htm?method=showRepository&repositoryId=$repository.repositoryId">
+    			$repository.getRepositoryName()<br />$repository.getBaseUrl()
+    		</a>
+    	</small>
+    </td>
+    <td><small>$repository.getNumberOfErrors() Fehler seit<br />$!repository.getLastKnownGood()</small></td>
+    <td>
+	  <!-- 5 icons for 5 defined actions -->
+      <!-- Send OAI-PMH Identify command to the OAI-Server -->
+      <a href="$repository.getBaseUrl()?verb=Identify" target="_blank">
+      <img alt="$text.action.checkOAIsrv"
+           title="$text.action.checkOAIsrv"
+           name="pic_CheckServer"
+           src="./icons/oaiIdentify.png" width="$width" /></a>
+           
+      <!-- Send OAI-PMH ListMetadataFormats command to the OAI-Server -->
+      <a href="$repository.getBaseUrl()?verb=ListMetadataFormats" target="_blank">
+      <img alt="$text.action.mdSupportedList"
+           title="$text.action.mdSupportedList"
+           name="pic_ListMetadataFormats"
+           src="./icons/oaiMetadataFormats.png" width="$width" /></a>
+          
+      <!-- Send OAI-PMH ListSets command to the OAI-Server -->
+      <a href="$repository.getBaseUrl()?verb=ListSets" target="_blank">
+      <img alt="$text.action.setSupportedlist"
+           title="$text.action.setSupportedlist"
+           name="pic_ListSets"
+           src="./icons/oaiSets.png" width="$width" /></a>
+                
+      <!-- change the settings -->
+      <a href="index.htm?method=showRepository&repositoryId=$repository.repositoryId">
+        <img alt="$text.action.reposettings"
+             title="$text.action.reposettings"
+             name="pic_Settings" src="./icons/cSettings.png" width="$width" />
+       </a>
+       
+      <!-- delete the repository -->
+      #if ($index > 15)
+          #set ($anchor = "#" + ($index - 3))
+      #end
+      <a href="index.htm?method=deleteRepository&repositoryId=$repository.repositoryId&src=$src$anchor">
+      <img alt="$text.action.deleterepo"
+           title="$text.action.deleterepo"
+           name="pic_Trash" src="./icons/cDelete.png" width="$width" />
+       </a>
+	</td>
+ </tr>
+ #end
+#end
+</table>
+</div>
+
+#parse("footer.vm")

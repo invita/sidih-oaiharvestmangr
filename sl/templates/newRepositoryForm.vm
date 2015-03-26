@@ -1,0 +1,94 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+#parse("header.vm")
+
+<div class="chapter">
+<h2>$text.newrepo.title</h2>
+
+<form method="get" >
+<table>
+  <tr>
+    <td>$text.newrepo.desc</td>
+    <td><input type="text" name="repositoryName" id="f_repositoryName"  size="100" value="" /></td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.url</td>
+    <td><input type="text" name="baseUrl" id="f_baseUrl" size="100" value="" /></td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.dateformat</td>
+    <td><input type="checkbox" name="hasFineGranularity" id="f_hasFineGranularity" checked="checked"/>
+  </td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.htmlstrict</td>
+    <td><input type="checkbox" name="strictHTTP" id="f_StrictHTTP" checked="checked"/>
+  </td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.timeout</td>
+    <td>
+      <select name="socketTimeout" size="1">
+        <option value="0" > $text.timeout.none </option>
+        <option value="120000" > $text.timeout2 </option>
+        <option value="180000" > $text.timeout3 </option>
+        <option value="300000" selected="selected"> $text.timeout5 </option>
+        <option value="600000"> $text.timeout10 </option>
+        <option value="900000"> $text.timeout15 </option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.maxtry</td>
+    <td>
+      <select name="maxNumberOfRetries" size="1">
+        <option>1</option>
+        <option>2</option>
+        <option selected="selected">3</option>
+        <option>5</option>
+        <option>10</option>
+        <option>20</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.waittry</td>
+    <td>
+      <select name="connectionDelay" size="1">
+        <option value="120" selected="selected"> 2 Min </option>
+        <option value="300"> 5 Min </option>
+        <option value="600"> 10 Min </option>
+        <option value="1800"> 30 Min </option>
+        <option value="3600"> 1 h </option>
+      </select>
+    </td>
+  </tr>
+</table>
+<br />
+<input type="submit" value="$text.newrepo.save" />
+<input type="reset"  value="$text.newrepo.cancel" />
+<input type="hidden" name="method" value="addRepository" />
+</form>
+</div>
+#parse("footer.vm")

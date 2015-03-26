@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!--
+	BASE Application context definition for "springapp" DispatcherServlet.
+-->
+
+<beans>
+<!-- after installing Hibernate and creating your database tables uncomment this -->
+    <bean
+      id="hibernateDataSource"
+      class="org.apache.commons.dbcp.BasicDataSource"
+      destroy-method="close">
+      <property
+        name="driverClassName"
+        value="com.mysql.jdbc.Driver" />
+      <property
+        name="url"
+        value="jdbc:mysql://localhost:3306/oaisidih?autoReconnect=true" />
+      <property
+        name="username"
+        value="oaiuser" />
+      <property
+        name="password"
+        value="zM35W9ac8pyAzcnV" />
+      <property
+        name="maxActive"
+        value="20" />
+      <property
+        name="maxIdle"
+        value="10" />
+      <property
+        name="maxWait"
+        value="1000" />
+      <property
+        name="defaultAutoCommit"
+        value="true" />
+      <property
+        name="removeAbandoned"
+        value="true" />
+      <property
+        name="removeAbandonedTimeout"
+        value="60" />
+      <property
+        name="testOnBorrow"
+        value="false" />
+      <property
+        name="validationQuery"
+        value="select 1" />
+    </bean>
+    
+    <bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+      <property name="dataSource" ref="hibernateDataSource" />
+      <property name="mappingResources">
+      <list>
+        <value>oaiHarvesterManager.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <value>
+        hibernate.dialect=org.hibernate.dialect.MySQLDialect
+      </value>
+    </property>
+    </bean>
+
+	<bean id="velocityConfig"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/templates" />
+		<property name="overrideLogging">
+			<value>false</value>
+		</property>
+		<property name="velocityProperties">
+			<props>
+				<prop key="spring.resource.loader.cache">false</prop>
+            	<prop key="file.resource.loader.cache">false</prop>
+            	<prop key="class.resource.loader.cache">false</prop>
+          		<prop key="velocimacro.library.autoreload">true</prop>
+				<prop key="velocimacro.permissions.allow.inline.to.replace.global">true</prop>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+				<prop key="runtime.log.logsystem.class">
+					org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+				</prop>
+				<prop key="runtime.log.logsystem.log4j.category">
+					org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+				</prop>
+				<prop key="runtime.log.error.stacktrace">false</prop>
+				<prop key="runtime.log.warn.stacktrace">false</prop>
+				<prop key="runtime.log.info.stacktrace">false</prop>
+				<prop key="runtime.log.info.stacktrace">false</prop>
+				<prop key="runtime.log.invalid.references">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailerVelocityEngine" factory-bean="velocityConfig" factory-method="createVelocityEngine" />
+	
+	<!-- property placeholder post-processor -->
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="config/application.properties" />
+	</bean>
+
+	<!-- bean id="taskDao" class="de.dnb.oai.harvester.task.InMemoryOaiTaskDao" singleton="true"/-->
+	<!-- after succesful testing with InMemoryDao and installing Hibernate 
+	     delete the InMemoryTaskDao Bean and uncomment this  -->
+	<bean id="taskDao" class="de.dnb.oai.harvester.task.HibernateOaiTaskDao">
+		<property name="sessionFactory" ref="hibernateSessionFactory" />
+	</bean>     
+	
+	
+	<!-- bean id="taskStopRequestDao" class="de.dnb.oai.harvester.task.InMemoryOaiTaskStopRequestDao" /-->
+	<!-- after succesful testing with InMemoryDao and installing Hibernate 
+	     delete the InMemoryTaskDao Bean and uncomment this -->
+	<bean id="taskStopRequestDao" class="de.dnb.oai.harvester.task.HibernateOaiTaskStopRequestDao">
+		<property name="sessionFactory" ref="hibernateSessionFactory" />
+	</bean> 
+	
+	<bean id="exportHandlerDao" class="de.dnb.stm.handler.export.ExportHandlerDao">
+		<property name="exportHandlers">
+			<list>
+				<bean class="de.dnb.oai.harvester.handler.export.impl.FilesystemExport">
+					<constructor-arg>
+				<!-- IMPORTANT! You have to change the default directory name in value tag
+				     to a valid directory in your system. Otherwise $TEMP directory will be used -->
+						<!-- value>c:\temp\oai-pmh_files-harvested</value-->
+						<value>/var/oaixml</value>
+					</constructor-arg>
+					<property name="name" value="Write harvested records to default directory." />
+					<property name="id" value="10000" />
+				</bean>
+				<bean class="de.dnb.oai.harvester.handler.export.impl.DummyExport">
+					<property name="name" value="Dummy Export: just count the results. Do not write." />
+					<property name="id" value="99999" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="oaiHarvesterManager" class="de.dnb.oai.harvester.manager.OaiHarvesterManagerImpl" init-method="init">
+		<property name="processorClass" value="de.dnb.oai.harvester.Harvester" />
+		
+		<!-- For NDC Logging TODO: move it to GUI
+		<property name="ndcName" value="OAI-Harvester-Manager: [Your Application Name Here]" />
+		 -->
+		 
+		<!-- List of Repositories  -->
+		<property name="repositoryDao">
+			<!-- bean class="de.dnb.oai.repository.InMemoryRepositoryDao" /-->
+			
+			<!-- after succesful testing with InMemoryDao and installing Hibernate
+			     delete the InMemory Bean and uncomment this -->  
+			<bean class="de.dnb.oai.repository.HibernateRepositoryDao" >
+				<property name="sessionFactory" ref="hibernateSessionFactory"  />	
+			</bean> 
+		</property>
+	
+		<constructor-arg>
+			<!-- CorePoolSize for java.util.concurrent.ScheduledThreadPoolExecutor -->
+			<value>20</value>
+		</constructor-arg>
+	</bean>
+</beans>

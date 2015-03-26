@@ -1,0 +1,18 @@
+/* Cascading Stylesheet for Die Deutsche Bibliothek */
+/* as per request the CSS-file is mapped in english */
+/* 3-point concepts: Stephan Betke - 28.11.2007 */
+
+/* Layout: 2 Columns with 7:3 ratio */
+
+/* Rulehack for IE */
+* html #content {width:100%;} 
+#content {font-family:verdana,arial,sans-serif; font-size:0.75em; line-height:1.4em; margin-left:15em;}
+#content .chapters {float:left; width:70%;}
+#content .news {float:right; width:29%;}
+#content .content_spacing {margin-left:18px;}
+
+/* update form_subnav P. Hentschel */
+#content .form_subnav .content_spacing {margin-left:0px;}
+#content .form_subnav{width:20%; float:left; margin:0px;}
+#content .form_subnav li{margin:0 0 5px 0;}
+#content .form_subnav li.on{padding:4px 0 4px 25px; color:#5A74A9;}

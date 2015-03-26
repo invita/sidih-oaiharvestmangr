@@ -1,0 +1,99 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+#parse("header.vm")
+<div class="chapter">
+<h2>$text.list.allrepos</h2>
+<br/>
+
+<table border="1">
+<tr>
+	<th>$text.jobtbl.num</th>
+	<th>$text.repos.url</th>
+	<th>$text.jobtbl.action</th>
+</tr>
+
+#set($width=48)
+#set($index = 0)
+#set($src = "SREPS")
+
+#foreach($repository in $repositoryList)
+  #set($anchor = "")
+  #set($index = $index + 1)
+  <tr id="$index">
+    <td><small><br />$index</small><br /></td>
+	<td><br />
+	#* changed from  method=showRepository  Karaca*#
+	  <a href="index.htm?method=updateRepositoryForm&repositoryId=$repository.repositoryId">
+	    $repository.repositoryName </a>
+	    <br />
+	    $repository.BaseUrl
+	</td>
+	<td>
+	  <!-- 5 icons for 5 defined actions -->
+      <!-- Send OAI-PMH Identify command to the OAI-Server -->
+      <a href="$repository.getBaseUrl()?verb=Identify" target="_blank">
+      <img alt="$text.action.checkOAIsrv"
+           title="$text.action.checkOAIsrv"
+           name="pic_CheckServer"
+           src="./icons/oaiIdentify.png" width="$width" /></a>
+           
+      <!-- Send OAI-PMH ListMetadataFormats command to the OAI-Server -->
+      <a href="$repository.getBaseUrl()?verb=ListMetadataFormats" target="_blank">
+      <img alt="$text.action.mdSupportedList"
+           title="$text.action.mdSupportedList"
+           name="pic_ListMetadataFormats"
+           src="./icons/oaiMetadataFormats.png" width="$width" /></a>
+          
+      <!-- Send OAI-PMH ListSets command to the OAI-Server -->
+      <a href="$repository.getBaseUrl()?verb=ListSets" target="_blank">
+      <img alt="$text.action.setSupportedlist"
+           title="$text.action.setSupportedlist"
+           name="pic_ListSets"
+           src="./icons/oaiSets.png" width="$width" /></a>
+                
+      <!-- change the settings -->
+      <a href="index.htm?method=updateRepositoryForm&repositoryId=$repository.repositoryId">
+        <img alt="$text.action.reposettings"
+             title="$text.action.reposettings"
+             name="pic_Settings" src="./icons/cSettings.png" width="$width" />
+       </a>
+       
+      <!-- delete the repository -->
+      #if ($index > 15)
+          #set ($anchor = "#" + ($index - 3))
+      #end
+      <a href="index.htm?method=deleteRepository&repositoryId=$repository.repositoryId&src=$src$anchor">
+      <img alt="$text.action.deleterepo"
+           title="$text.action.deleterepo"
+           name="pic_Trash" src="./icons/cDelete.png" width="$width" />
+       </a>
+	</td>
+ </tr>
+#end
+
+</table>
+</div>
+
+#parse("footer.vm")
+

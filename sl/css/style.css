@@ -1,0 +1,166 @@
+/* Cascading Stylesheet for Die Deutsche Bibliothek */
+/* as per request the CSS-file is mapped in english */
+/* 3-point concepts: Stephan Betke - 16.01.2008 */
+
+/* general stylesheet linked to every site */
+
+html {height:100.1%;}
+body {background:#FFF; color:#333; font-family:verdana,arial,sans-serif; margin-left:10px; margin-top:10px;}
+img {border:0; margin:0; padding:0;}
+
+/* Header */
+#header {background:url(img_style/header_0.gif) top left repeat-x; border:#FFF 1px solid; height:102px; line-height:0px; margin:0; min-width:670px; overflow:hidden; padding:0; white-space:nowrap; width:100%; width:expression(document.body.clientWidth < 800? "670px": "auto" );}
+#header .header_logo {float:left;}
+#header .header_navigation {background:#FFF; color:#1C3667; float:left; font-size:0.7em; line-height:1em; padding:0 0 3px 18px; white-space:nowrap;}
+#header .header_navigation a:link, #header .header_navigation a:visited {color:#1C3667; text-decoration:none;}	
+#header .header_navigation a:hover, #header .header_navigation a:focus {color:#1C3667; text-decoration:none;}
+#header .header_navigation .header_1 {background:url(img_style/header_1.gif) top right repeat-y; display:block; float:left; padding:88px 8px 3px 0;}
+#header .header_navigation .header_2 {background:url(img_style/header_2.gif) top right repeat-y; display:block; float:left; padding:88px 8px 3px 6px;}
+#header .header_navigation .header_3 {background:url(img_style/header_3.gif) top right repeat-y; display:block; float:left; padding:88px 8px 3px 6px;}
+#header .header_navigation .header_4 {background:url(img_style/header_4.gif) top right repeat-y; display:block; float:left; padding:88px 8px 3px 6px;}
+#header .header_navigation .header_5 {background:url(img_style/header_5.gif) top right repeat-y; display:block; float:left; padding:88px 8px 3px 6px;}
+#header .header_navigation .header_6 {background:url(img_style/header_6.gif) top right repeat-y; display:block; float:left; padding:88px 8px 3px 6px;}
+#header .header_navigation .header_7 {background:url(img_style/header_7.gif) top right repeat-y; display:block; float:left; padding:88px 8px 3px 6px;}
+#header .header_navigation .header_8 {background:url(img_style/header_8.gif) top right repeat-y; display:block; float:left; padding:88px 8px 3px 6px;}
+#header .header_banner {float:right;}
+
+/* Footer */
+#footer {border-top:#80D0F4 2px solid; clear:both; margin:20px 0 0 0; padding:5px 0 40px 0;}
+#footer .footer_jump {color:#1C3667; font-size:0.7em; padding:0 17px 0 0; text-align:right; white-space:nowrap;}
+#footer .footer_jump a:link, #footer .footer_jump a:visited {background:url(img_style/spacer.gif) left top no-repeat; color:#1C3667; margin:0 0 0 8px; padding:0 0 0 10px; text-decoration:none; width:3em;}
+#footer .footer_jump a:hover, #footer .footer_jump a:focus {background:url(img_style/spacer.gif) left top no-repeat; color:#1C3667; margin:0 0 0 8px; padding:0 0 0 10px; text-decoration:none; width:3em;}
+#footer .footer_banner {float:left; line-height:0;}
+
+/* Breadcrumb */
+#breadcrumb {color:#565F68; font-family:verdana,arial,sans-serif; font-size:0.75em; font-weight:bold; line-height:1.4em; margin:25px 0 25px 15em;}
+#breadcrumb a:link, #breadcrumb a:visited {color:#4160A5; font-weight:normal; text-decoration:none;}	
+#breadcrumb a:hover, #breadcrumb a:focus {color:#4160A5; font-weight:normal; text-decoration:none;}
+
+/* Mainmenu */
+/* one menu entry can be 100px high; that should suffice for most menus, */
+/* otherwise add canvas-height to the background-image only, do not change height value to * html #navigation */
+/* subtle mouse-over effects can be added by changing the #navigation a:hover entry */
+#navigation {float:left; font-size:0.7em; line-height:1.5em; padding-left:0px; width:14.5em;}
+#navigation ul {border-bottom:#9DAFD5 1px solid; list-style:none; margin:0; padding:0;}
+#navigation ul li {background:url(img_style/pfeil_on.gif) left top no-repeat; border-top:#9DAFD5 1px solid; padding:3px 0 5px 0;}
+#navigation ul li.on {background-color:#F1F4FB; border-top:#9DAFD5 1px solid; font-weight:bold;}
+#navigation a:link, #navigation a:visited {background:url(img_style/pfeil_on.gif) top left no-repeat; color:#1C3667; display:block; text-decoration:none; padding:0 0 0 23px;}
+#navigation a:hover, #navigation a:focus {background:url(img_style/pfeil_on.gif) top left no-repeat; color:#1C3667; display:block; text-decoration:none; padding:0 0 0 23px;}
+
+#navigation ul.back {margin-top:24px;}
+#navigation ul li.back {background:url(img_style/pfeil_back.gif) left top no-repeat; border-top:#9DAFD5 1px solid;}
+#navigation li.back a:link, #navigation li.back a:visited {background:url(img_style/pfeil_back.gif) left top no-repeat; color:#1C3667; display:block; text-decoration:none; padding:0 0 0 23px;}
+#navigation li.back a:hover, #navigation li.back a:focus {background:url(img_style/pfeil_back.gif) left top no-repeat; color:#1C3667; display:block; text-decoration:none; padding:0 0 0 23px;}
+
+/* Submenus */
+#navigation ul.submenu_1 {border-bottom:#9DAFD5 2px solid; border-top:#9DAFD5 1px solid; list-style:none; margin:18px 0 0 0; padding:0;}
+#navigation ul.submenu_1 li {background:#FFF url(img_style/pfeil_submenu_1.gif) left top no-repeat; border-top:#9DAFD5 1px solid; padding:3px 0 5px 0;}
+#navigation ul.submenu_1 li a:link, #navigation ul.submenu_1 li a:visited {background:url(img_style/pfeil_submenu_1.gif) left top no-repeat; color:#1C3667; display:block; padding:0 0 0 23px; text-decoration:none;}
+#navigation ul.submenu_1 li a:hover, #navigation ul.submenu_1 li a:focus {background:url(img_style/pfeil_submenu_1.gif) left top no-repeat; color:#1C3667; display:block; padding:0 0 0 23px; text-decoration:none;}
+#navigation ul.submenu_1 li.on {background:#FFF url(img_style/pfeil_on.gif) left top no-repeat; font-weight:normal;}
+#navigation ul.submenu_1 li.on a:link, #navigation ul.submenu_1 li.on a:visited {background:url(img_style/pfeil_on.gif) left top no-repeat; color:#1C3667; display:block; padding:0 0 0 23px; text-decoration:none;}
+#navigation ul.submenu_1 li.on a:hover, #navigation ul.submenu_1 li.on a:focus {background:url(img_style/pfeil_on.gif) left top no-repeat; color:#1C3667; display:block; padding:0 0 0 23px; text-decoration:none;}
+
+#navigation ul.submenu_2 {border-bottom:#C1C3AE 1px solid; list-style:none; margin:18px 0 0 0; padding:0;}
+#navigation ul.submenu_2 li {background:#FFF url(img_style/pfeil_submenu_2.gif) left top no-repeat; border-top:#C1C3AE 1px solid; padding:3px 0 5px 0;}
+#navigation ul.submenu_2 li a:link, #navigation ul.submenu_2 li a:visited {background:url(img_style/pfeil_submenu_2.gif) left top no-repeat; color:#5C575B; display:block; padding:0 0 0 23px; text-decoration:none;}
+#navigation ul.submenu_2 li a:hover, #navigation ul.submenu_2 li a:focus {background:url(img_style/pfeil_submenu_2.gif) left top no-repeat; color:#5C575B; display:block; padding:0 0 0 23px; text-decoration:none;}
+#navigation ul.submenu_2 li.on {background:#FFF url(img_style/pfeil_search.gif) left top no-repeat; font-weight:normal;}
+#navigation ul.submenu_2 li.on a:link, #navigation ul.submenu_2 li.on a:visited {background:url(img_style/pfeil_search.gif) left top no-repeat; color:#5C575B; display:block; padding:0 0 0 23px; text-decoration:none;}
+#navigation ul.submenu_2 li.on a:hover, #navigation ul.submenu_2 li.on a:focus {background:url(img_style/pfeil_search.gif) left top no-repeat; color:#5C575B; display:block; padding:0 0 0 23px; text-decoration:none;}
+
+/* Menu for Webservices */
+/*#navigation ul.search {border-bottom:#C1C3AE 1px solid; list-style:none; margin:26px 0 0 0; padding:0;}*/
+/* Anpassung vom 21.4.09, damit die Navigationsleiste nach oben rückt und damit auch die Loginbox */
+#navigation ul.search {border-bottom:#C1C3AE 1px solid; list-style:none; margin:0 0 0 0; padding:0;}
+#navigation ul.search li {background:#FFF url(img_style/pfeil_search.gif) left top no-repeat; border-top:#C1C3AE 1px solid; padding:3px 0 5px 0;}
+#navigation ul.search li.on {background-color:#FFFDED; border-top:#C1C3AE 1px solid; font-weight:bold;}
+#navigation ul.search li.down {background:#FFFDED url(img_style/pfeil_search_unten.gif) top left no-repeat; border-top:1px solid #C1C3AE; font-weight:normal; padding-bottom:0;}
+#navigation ul.search a:link, #navigation ul.search a:visited {background:url(img_style/pfeil_search.gif) left top no-repeat; color:#5C575B; display:block; padding:0 0 0 23px; text-decoration:none;}
+#navigation ul.search a:hover, #navigation ul.search a:focus {background:url(img_style/pfeil_search.gif) left top no-repeat; color:#5C575B; display:block; padding:0 0 0 23px; text-decoration:none;}
+
+#navigation ul.search li.down a:link, #navigation ul.search li.down a:visited {background:url(img_style/pfeil_search_unten.gif) top left no-repeat; color:#5C575B; display:block; text-decoration:none; padding: 0 0 0 23px;}
+#navigation ul.search li.down a:hover, #navigation ul.search li.down a:hover {background:url(img_style/pfeil_search_unten.gif) top left no-repeat; color:#5C575B; text-decoration: none; padding: 0 0 0 23px;}
+#navigation ul.search li.down ul {background:#FFF; border-bottom:0; list-style:none; margin:4px 0 0 0; padding:0;}
+#navigation ul.search li.down ul li {background:url(img_style/transparent.gif) top left no-repeat; border-top:#C1C3AE 1px solid; font-weight:normal; padding:3px 0 5px 15px;}
+#navigation ul.search li.down ul li.on {background:#FFF url(img_style/transparent.gif) top left no-repeat; border-top:#C1C3AE 1px solid; font-weight:bold; padding:3px 0 5px 15px;}
+#navigation ul.search li.down ul a:link, #navigation ul.search li.down ul a:visited {background:url(img_style/pfeil_search_weiss.gif) top left no-repeat; color:#5C575B; display:block; text-decoration:none; padding: 0 0 0 23px;}
+#navigation ul.search li.down ul a:hover, #navigation ul.search li.down ul a:focus {background:url(img_style/pfeil_search_weiss.gif) top left no-repeat; color:#5C575B; text-decoration:none; padding: 0 0 0 23px;}
+
+#navigation fieldset.login input {background:#E0E9F8 url(img_style/button_start.gif) right no-repeat; border:0; cursor:pointer; margin:10px 5px 0 0; width:6.2em;}
+#navigation fieldset.login {text-align:center;}
+#navigation fieldset.logout {}
+#navigation fieldset.logout input {background:#E0E9F8 url(img_style/button_start.gif) right no-repeat; border:0; cursor:pointer; float:right; margin:10px 5px 0 0; width:6.2em;}
+
+* html #navigation a:link, * html #navigation a:visited {height:12px;}
+
+/* Jumplabels, Related Links and Downloads */
+/* careful working on this one, since it's closely related to Lists */
+/* every step taken in Lists (fliesstext.css) have to be removed first in order to make this sweety work */
+#content div.tableofcontent ul {list-style:none; list-style-image:none; margin:0; padding:0;}
+#content div.tableofcontent ul li {margin:0 0 1px 0; padding:0;}
+#content div.tableofcontent ul li a:link, #content div.tableofcontent ul li a:visited {background:url(img_style/pfeil_unten.gif) left top no-repeat; color:#425FA5; display:block; text-decoration:none; padding: 2px 0 2px 23px;}
+#content div.tableofcontent ul li a:hover, #content div.tableofcontent ul li a:focus {background:url(img_style/pfeil_unten.gif) left top no-repeat; color:#425FA5; display:block; text-decoration:underline; padding: 2px 0 2px 23px;}
+* html #content div.tableofcontent ul li {margin:0;}
+* html #content div.tableofcontent ul li a:link, * html #content div.tableofcontent ul li a:visited {height:10px;}
+
+#content div.back ul {list-style:none; list-style-image:none; margin:0; padding:0;}
+#content div.back ul li {margin:0 0 1px 0; padding:0;}
+#content div.back ul li a:link, #content div.back ul li a:visited {background:url(img_style/pfeil_zurueck.gif) left top no-repeat; color:#425FA5; display:block; text-decoration:none; padding:2px 0 2px 23px;}
+#content div.back ul li a:hover, #content div.back ul li a:focus {background:url(img_style/pfeil_zurueck.gif) left top no-repeat; color:#425FA5; display:block; text-decoration:underline; padding:2px 0 2px 23px;}
+* html #content div.back ul li {margin:0;}
+* html #content div.back ul li a:link, * html #content div.back ul li a:visited {height:10px;}
+
+/* Related Links and Downloads */
+/* same advise as with Jumplabels goes here too */
+#content div.link ul {border:0; list-style:none; list-style-image:none; margin:0; padding:0;}
+#content div.link ul li {border-top:#FFF 1px solid; margin:0; padding:0;}
+#content div.link ul li a:link, #content div.link ul li a:visited {background:url(img_style/pfeil_rechts.gif) left top no-repeat; color:#425FA5; display:block; text-decoration:none; padding:2px 0 3px 23px;}
+#content div.link ul li a:hover, #content div.link ul li a:focus {background:url(img_style/pfeil_rechts.gif) left top no-repeat; color:#425FA5; display:block; text-decoration:underline; padding:2px 0 3px 23px;}
+* html #content div.link ul li {border:#FFF 1px solid; margin:-1px 0 0 0;}
+* html #content div.link ul li {height:10px; voice-family:"\"}\""; voice-family: inherit; height:auto;} #empty {}
+
+#content div.download ul {border:0; list-style:none; list-style-image:none; margin:0; padding:0;}
+#content div.download ul li {border-top:#FFF 1px solid; margin:0; padding:0;}
+#content div.download ul li a:link, #content div.download ul li a:visited {background:url(img_style/icon_download.gif) top left no-repeat; color:#425FA5; display:block; text-decoration:none; padding: 2px 0px 4px 24px;}
+#content div.download ul li a:hover {background:url(img_style/icon_download.gif) top left no-repeat; color:#425FA5; text-decoration:underline; padding: 2px 0px 4px 24px;}
+* html #content div.download ul li {border:#FFF 1px solid; margin:-1px 0px 0px 0px;}
+* html #content div.download ul li {height:10px; voice-family:"\"}\""; voice-family: inherit; height:auto;} #empty {}
+
+/* Links */
+/*a:visited {color:#C90; text-decoration:none;}*/
+a:link, a:visited {color:#4160A5; text-decoration:none;}
+a:hover, a:focus {color:#4160A5; text-decoration:underline;}
+
+/* Tables */
+table {border:#A0AED1 0.1em solid; border-collapse:collapse; font-size:1em; line-height:1.5em;}
+caption {background:#FFF; margin-top:8px; padding-bottom:8px; text-align:left;}
+caption strong, b {color:#54606E;}
+tr {background:#FFF; border:#A0AED1 0.1em solid; color:#333;}
+tr.blue {background:#F0F3FA; border:#A0AED1 0.1em solid; color:#333;}
+th {border:#A0AED1 0px solid; color:#333; padding-top:20px; text-align:left; vertical-align:top;}
+th.nowrap {border:#A0AED1 0px solid; color:#333; padding-top:20px; text-align:left; vertical-align:top; white-space:nowrap;}
+th.blue {background:#F0F3FA; border:#A0AED1 0px solid; color:#333; padding-top:20px; text-align:left; vertical-align:top;}
+th.bluenowrap {background:#F0F3FA; border:#A0AED1 0px solid; color:#333; padding-top:20px; text-align:left; vertical-align:top; white-space:nowrap;}
+td {border:#A0AED1 0.1em solid; color:#333; vertical-align:top;}
+td.nowrap {border:#A0AED1 0.1em solid; color:#333; vertical-align:top; white-space:nowrap;}
+td.blue {background:#F0F3FA; border:#A0AED1 0.1em solid; color:#333; vertical-align:top;}
+td.bluenowrap {background:#F0F3FA; border:#A0AED1 0.1em solid; color:#333; vertical-align:top; white-space:nowrap;}
+
+/* Forms */
+form {margin:0; padding:0;}
+fieldset {border:#9EADD6 1px solid; margin-bottom:18px; padding:10px;}
+label, label strong {color:#575F72;}
+legend {color:#5A74A9; font-weight:bold;}
+select {font-family:verdana,arial,sans-serif;}
+input {font-family:verdana,arial,sans-serif;}
+input.submit {background:#FEFEED url(img_style/button_suche.gif) right no-repeat; border:#FCFAF2 1px solid; cursor:pointer; padding-right:5px; width:8em;}
+
+/* General Stylesheets-Classes */
+p {margin-top:0px;}
+strong, b {color:#5A74A9;}
+acronym, abbr {cursor:help; border-bottom:1px dotted;}
+hr {background:#9DAFD5; border:0; color:#9DAFD5; height:1px; margin:5px 0 5px 0; padding:0;}
+.clear {clear:both; display:block; line-height:0;}
+#content .clear {clear:both; display:block; height:20px; line-height:0;}
+.invisible {display:none;}

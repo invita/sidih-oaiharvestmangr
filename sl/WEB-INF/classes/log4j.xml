@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN"
+    "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- This default ConsoleAppender is used to log all NON perf4j messages to System.out -->
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p [%c] - &lt;%m&gt;%n" />
+		</layout>
+	</appender>
+	
+	<!-- Change File param to this applications log file setting. -->
+	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/oaihv.dnb.de/urnharvester.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyyMMdd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyyMMdd-HHmmss.SSS} %-5p [%t] [%x] [%c{1}] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="remote" class="org.apache.log4j.net.SocketAppender">
+		<param name="RemoteHost" value="${log4j.remotehost}" />
+		<param name="Port" value="${log4j.remoteport}" />
+		<param name="ReconnectionDelay" value="10" />
+		<param name="LocationInfo" value="false" />
+	</appender>
+
+
+    <appender name="async" class="org.apache.log4j.AsyncAppender">
+        <param name="BufferSize" value="4096" />
+        <param name="blocking" value="false" />
+        <param name="LocationInfo" value="false" />
+        <appender-ref ref="stdout" />
+        <appender-ref ref="file" />
+    </appender>
+
+    <!-- Loggers -->
+
+    <!-- WARNING: Setting the org.springframework logger to DEBUG displays debug 
+        information about the request parameter values being bound to the command 
+        objects. This could expose your password in the log file. If you are sharing 
+        your log files, it is recommend you selectively apply DEBUG level logging 
+        on a an org.springframework.* package level (i.e. org.springframework.dao) -->
+    <logger name="org.springframework">
+        <level value="info" />
+    </logger>
+
+    <logger name="de.dnb">
+        <level value="debug" />
+    </logger>
+    
+    <logger name="org.apache.velocity">
+        <level value="warn" />
+    </logger>
+    
+    <root>
+        <level value="info" />
+        <appender-ref ref="async" />
+    </root>
+</log4j:configuration>

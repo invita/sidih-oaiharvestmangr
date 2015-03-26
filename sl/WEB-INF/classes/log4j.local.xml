@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN"
+    "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+
+<log4j:configuration>
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyyMMdd-HHmmss.SSS} %-5p [%t] [%x] [%c{1}] %m%n" />
+		</layout>
+	</appender>
+	
+  <logger name="org.nbnResolving">
+  	<level value="debug"/>
+  	<appender-ref ref="stdout"/>
+  </logger>
+  
+  <logger name="de.dnb">
+  	<level value="debug"/>
+  	<appender-ref ref="stdout"/>
+  </logger>
+  
+  <logger name="org.culturegraph">
+  	<level value="debug"/>
+  	<appender-ref ref="stdout"/>
+  </logger>
+
+  <root>
+    <priority     value="warn"/>
+    <appender-ref ref="file"/>
+  </root>
+ 
+</log4j:configuration>

@@ -1,0 +1,186 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+#parse("header.vm")
+
+<div class="chapter">
+<h2>$text.repo.update</h2>
+
+<form method="get" >
+<table>
+  <tr>
+    <td>$text.newrepo.desc</td>
+    <td><input type="text" name="repositoryName" id="f_repositoryName"  size="100" value="$!repository.repositoryName" /></td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.url</td>
+    <td><input type="text" name="baseUrl" id="f_baseUrl" size="100" value="$!repository.baseUrl" /></td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.dateformat</td>
+    #if($!repository.hasFineGranularity)
+    	<td><input type="checkbox" name="hasFineGranularity" id="f_hasFineGranularity" checked="checked"/>
+    #else
+    	<td><input type="checkbox" name="hasFineGranularity" id="f_hasFineGranularity"/>
+    #end
+  </td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.htmlstrict</td>
+    #if($!repository.strictHTTP)
+    	<td><input type="checkbox" name="strictHTTP" id="f_StrictHTTP" checked="checked"/>
+    #else
+    	<td><input type="checkbox" name="strictHTTP" id="f_StrictHTTP" />
+    #end
+  </td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.timeout</td>
+    <td>
+      <select name="socketTimeout" size="1">
+        #if($!repository.socketTimeout == 0)
+        	<option value="0" selected="selected"> $text.timeout.none </option>
+        #else	
+        	<option value="0" > $text.timeout.none </option>
+        #end
+        
+        #if($!repository.socketTimeout == 120000)
+        	<option value="120000" selected="selected"> $text.timeout2 </option>
+        #else	
+        	<option value="120000" > $text.timeout2 </option>
+        #end
+        
+        #if($!repository.socketTimeout == 180000)
+        	<option value="180000" selected="selected"> $text.timeout3 </option>
+        #else	
+        	<option value="180000" > $text.timeout3 </option>
+        #end
+        
+        #if($!repository.socketTimeout == 300000)
+        	<option value="300000" selected="selected">$text.timeout5 </option>
+        #else	
+        	<option value="300000" > $text.timeout5 </option>
+        #end
+        
+        #if($!repository.socketTimeout == 600000)
+        	<option value="600000" selected="selected"> $text.timeout10 </option>
+        #else	
+        	<option value="600000" > $text.timeout10 </option>
+        #end
+        
+        #if($!repository.socketTimeout == 900000)
+        	<option value="900000" selected="selected"> $text.timeout15 </option>
+        #else	
+        	<option value="900000" > $text.timeout15 </option>
+        #end
+        
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>$text.retry.num</td>
+    <td>
+      <select name="maxNumberOfRetries" size="1">
+        #if($!repository.maxNumberOfRetries == 1)
+        	<option selected="selected">1</option>
+        #else	
+        	<option>1</option>
+        #end
+        
+        #if($!repository.maxNumberOfRetries == 2)
+        	<option selected="selected">2</option>
+        #else	
+        	<option>2</option>
+        #end
+        
+        #if($!repository.maxNumberOfRetries == 3)
+        	<option selected="selected">3</option>
+        #else	
+        	<option>3</option>
+        #end
+        
+        #if($!repository.maxNumberOfRetries == 5)
+        	<option selected="selected">5</option>
+        #else	
+        	<option>5</option>
+        #end
+        
+        #if($!repository.maxNumberOfRetries == 10)
+        	<option selected="selected">10</option>
+        #else	
+        	<option>10</option>
+        #end
+        
+        #if($!repository.maxNumberOfRetries == 20)
+        	<option selected="selected">20</option>
+        #else	
+        	<option>20</option>
+        #end
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>$text.newrepo.waittry</td>
+    <td>
+      <select name="connectionDelay" size="1">
+        #if($!repository.connectionDelay == 120)
+        	<option value="120" selected="selected"> $text.timeout2 </option>
+        #else	
+        	<option value="120" > $text.timeout2 </option>
+        #end
+        
+        #if($!repository.connectionDelay == 300)
+        	<option value="300" selected="selected"> $text.timeout5 </option>
+        #else	
+        	<option value="300" > $text.timeout5 </option>
+        #end
+        
+        #if($!repository.connectionDelay == 600)
+        	<option value="600" selected="selected"> $text.timeout10 </option>
+        #else	
+        	<option value="600" > $text.timeout10 </option>
+        #end
+        
+        #if($!repository.connectionDelay == 1800)
+        	<option value="1800" selected="selected"> $text.timeout30 </option>
+        #else	
+        	<option value="1800" > $text.timeout30 </option>
+        #end
+        
+        #if($!repository.connectionDelay == 3600)
+        	<option value="3600" selected="selected"> $text.timeout60 </option>
+        #else	
+        	<option value="3600" > $text.timeout60 </option>
+        #end
+      </select>
+    </td>
+  </tr>
+</table>
+<br />
+<input type="submit" value="$text.harvest.tasksave" />
+<input type="reset"  value="$text.harvest.clear" />
+<input type="hidden" name="method" value="updateRepository" />
+<input type="hidden" name="repositoryId" value="$!repository.repositoryId" />
+</form>
+</div>
+#parse("footer.vm")

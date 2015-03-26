@@ -1,0 +1,103 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+#parse("header.vm")
+
+<div class="chapter">
+<h2>$text.addtask.title</h2>
+
+<form method="get" >
+<table>
+  <tr>
+    <td>$text.addtask.oairepo</td>
+    <td>
+      <select name="repositoryId" size="1">
+        #foreach($repository in $repositoryDao.getRepositories()) 
+          <option value=$repository.repositoryId>$repository.getRepositoryName()</option>
+        #end
+      </select>
+    </td>
+  </tr>
+  <!-- This software uses JSCalendar from http://www.dynarch.com/projects/calendar/
+       it is cool and LGPL licenced. Thanks to its programmers. -->
+  <tr>
+    <td>$text.jobtbl.start</td>
+    <td><img src="./js/jscalendar/img.gif" id="b_startDate" style="cursor: pointer; border: 1px solid red;" title="$text.img.calendar"
+      onmouseover="this.style.background='red';" onmouseout="this.style.background=''" /><input type="text" name="startDate" id="f_startDate" readonly="1" size="20" />
+    </td>
+  </tr>
+  <tr>
+    <td>$text.addtask.oaiident</td>
+    <td><input type="text" name="identifier" id="f_identifier" size="50" value="" /></td>
+  </tr>
+  <tr>
+    <td>$text.harvest.mdprefix</td>
+    <td><input type="text" name="metadataPrefix" id="f_metadataPrefix" size="12" value="onix" /></td>
+  </tr>
+  <tr>
+    <td>$text.harvest.export</td>
+    <td>
+      <select name="exportHandlerId" size="1">
+        #foreach($exportHandler in $exportHandlerDao.exportHandlers) 
+        <option value=$exportHandler.getId()>$exportHandler.getName()</option>
+        #end
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>$text.harvest.test</td>
+    <td><input type="checkbox" name="ValidateOaiResponse" id="f_ValidateOaiResponse" checked="checked"/>
+    </td>
+  </tr>
+  <tr>
+    <td>$text.harvest.xmlvalidation</td>
+    <td><input type="checkbox" name="validateRecords" id="f_validateRecords" checked="checked"/>
+    </td>
+  </tr>
+  <tr>
+    <td>$text.harvest.saveresp</td>
+    <td><input type="checkbox" name="saveResponse" id="f_saveResponse" checked="checked"/>
+    </td>
+  </tr>
+</table>
+<br />
+<input type="submit" value="$text.harvest.tasksave" />
+<input type="reset"  value="$text.harvest.clear" />
+<input type="hidden" name="verb" value="GetRecord" />
+<input type="hidden" name="method" value="getRecord" />
+
+<script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "f_startDate",
+        ifFormat       :    "%Y-%m-%dT%H:%M:00Z", 
+        firstDay       :    1,
+        showOthers     :    true,
+        showsTime      :    true,
+        timeFormat     :    "24",
+        button         :    "b_startDate",
+        step           :    1
+    });
+</script>
+</form>
+</div>
+#parse("footer.vm")

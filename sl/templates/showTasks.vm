@@ -1,0 +1,145 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+#parse("header.vm")
+<div class="chapter">
+<h2>$text.current.queue</h2>
+<br/>
+
+<table border="1">
+<tr>
+	<th>$text.jobtbl.num</th>
+	<th>$text.jobtbl.job</th>
+	<th>$text.jobtbl.start</th>
+	<th>$text.jobtbl.harvestFrom</th>
+	<th>$text.jobtbl.interval</th>
+	<th width="50">$text.jobtbl.action</th>
+</tr>
+
+#set($width = 40)
+#set($index = 0)
+#set($src = "STASKS")
+
+#foreach($selectedTask in $manager.taskList)
+ #if ($selectedTask.getStatus() > 0)
+  #set($anchor = "")
+  #set($index = $index + 1)
+  #set($startMillis = $selectedTask.getStartDate().getTime())
+  #if ($startMillis > $now)
+  	#set($totalSeconds = ($startMillis - $now) / 1000)
+  #else
+    #set($totalSeconds = 0)
+  #end
+  
+  #set($hours = $totalSeconds / 3600)
+  #set($minutes = ($totalSeconds - ($hours * 3600)) / 60)
+  #set($seconds = $totalSeconds - ($hours * 3600) - ($minutes *60))
+  <tr id="$index">
+    <td><br />$index</td>
+	<td>
+	 <small>
+	  <a href="index.htm?method=showRequestList&taskId=$selectedTask.taskId">
+	    $selectedTask.repository.repositoryName<br />
+	    $selectedTask.repository.BaseUrl<br />
+	    PREFIX="$selectedTask.getMetadataPrefix()" &nbsp; SET="$selectedTask.getOai_Set()"
+	  </a>
+	 </small>
+	</td>
+	<td>
+	 <small>
+	   $date.format('yyyy-MM-dd HH:mm:ss',$selectedTask.startDate)<br />
+	   #if  ($selectedTask.getStatus() == 7) <blink> $text.harvest.paused</blink>
+	   #elseif (($selectedTask.getStatus() == 8))<blink> running </blink>
+	   #elseif (($hours == 0) && ($minutes == 0))  (in $seconds $text.time.sec)
+	   #else (in $hours Stunden $minutes Minuten)
+	   #end
+	 </small>
+	</td>
+	<td>
+	 <small>
+	   #if ($selectedTask.verb == "ListRecords")
+	     $date.format('yyyy-MM-dd HH:mm:ss',$selectedTask.fromDate)<br />$date.format('yyyy-MM-dd HH:mm:ss',$selectedTask.untilDate) 
+	   #elseif ($selectedTask.verb == "GetRecord")
+	     OAI-Identifier:<br />$selectedTask.identifier
+	   #end
+	 </small>
+	</td>
+	<td>
+	 <center>
+	 <small>
+	    #if     ($selectedTask.runInterval ==       0) Keine<br />Wiederholung
+	    #elseif ($selectedTask.runInterval  <     120) Alle<br />$selectedTask.runInterval Sekunden
+        #elseif ($selectedTask.runInterval  <    7200) Alle<br />#set($value = $selectedTask.runInterval / 60) $value Minuten
+        #elseif ($selectedTask.runInterval  <  172800) Alle<br />#set($value = $selectedTask.runInterval / 3600) $value Stunden
+        #elseif ($selectedTask.runInterval  <  604800) Alle<br />#set($value = $selectedTask.runInterval / 86400) $value Tage
+        #else Alle<br />#set($value = $selectedTask.runInterval / 604800) $value Wochen
+	    #end
+	 </small>
+	 </center>
+	</td>
+	<td>
+	  <!-- 2 of 4 icons for 3 defined actions -->     
+      <!-- pause a waiting Task -->
+      #if ($selectedTask.getStatus() == 9)
+       <a href="index.htm?method=pauseTask&taskId=$selectedTask.taskId&src=$src$anchor">
+        <img alt="$text.tasks.wait"
+             title="$text.tasks.wait"
+             name="pic_Pause" src="./icons/cPause.png" width="$width" />
+       </a>
+	  <!-- start a paused Task -->
+	  #elseif ($selectedTask.getStatus() == 7)
+       <a href="index.htm?method=resumeTask&taskId=$selectedTask.taskId&src=$src$anchor">
+	    <img alt="$text.tasks.start"
+	         title="$text.tasks.start"
+	         name="pic_Start" src="./icons/cStart.png" width="$width" />
+	   </a>
+	   #elseif($manager.getTaskStopRequestDao().findTaskStopRequestsByTaskId($selectedTask.taskId).size() == 0)
+        <a href="index.htm?method=stopRunningTask&taskId=$selectedTask.taskId&src=$src$anchor">
+          <img alt="$text.tasks.stop"
+           name="pic_Cancel"
+           title="$text.tasks.stop"
+           src="./icons/sStoppedByUser.png" width="$width" />
+       </a>
+      #else
+           <img alt="Anfrage zur Unterbrechung des Tasks wurde gesendet" title="Anfrage zur Unterbrechung des Tasks wurde gesendet" src="./icons/sStoppedByUserInactive.png" width="$width" /> 
+	  #end
+      <!-- delete the task -->
+      #if ($selectedTask.getStatus() != 8)
+        #if ($index > 15)
+          #set ($anchor = "#" + ($index - 3))
+        #end
+       <a href="index.htm?method=deleteTask&taskId=$selectedTask.taskId&src=$src$anchor">
+       <img alt="$text.tasks.delete"
+           name="pic_Trash"
+           title="$text.tasks.delete"
+           src="./icons/cDelete.png" width="$width" />
+       </a>
+      #end
+	</td>
+ </tr>
+ #end
+#end
+</table>
+</div>
+
+#parse("footer.vm")

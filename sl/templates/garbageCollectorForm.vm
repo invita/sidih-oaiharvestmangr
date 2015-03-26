@@ -1,0 +1,81 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+#parse("header.vm")
+
+<div class="chapter">
+ <br />
+<h2>$text.clear.all.data</h2>
+ <br />
+
+<form method="get">
+ <table>
+	<tr>
+		<td>$text.clear.all.from</td>
+		<td><select name="taskTimeLimit" size="1">
+			<option value=     "0">  $text.time.clean.none </option>
+			<option value=    "60">$text.time.clean1h</option>
+			<option value=   "180">$text.time.clean3h</option>
+			<option value=   "360">$text.time.clean6h</option>
+			<option value=   "720">$text.time.clean12h</option>
+			<option value=  "1440">$text.time.clean1d</option>
+			<option value=  "4320">$text.time.clean3d</option>
+			<option value= "10080">$text.time.clean1t</option>
+			<option value= "20160" selected="selected">$text.time.clean2t</option>
+			<option value= "30240">$text.time.clean3t</option>
+			<option value= "40320">$text.time.clean4t</option>
+			<option value= "60480">$text.time.clean6t</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>$text.claer.all.req</td>
+		<td><select name="requestTimeLimit" size="1">
+            <option value=     "0">  $text.time.clean.none </option>
+			<option value=    "60">$text.time.clean1h</option>
+			<option value=   "180">$text.time.clean3h</option>
+			<option value=   "360">$text.time.clean6h</option>
+			<option value=   "720">$text.time.clean12h</option>
+			<option value=  "1440">$text.time.clean1d</option>
+			<option value=  "4320">$text.time.clean3d</option>
+			<option value= "10080">$text.time.clean1t</option>
+			<option value= "20160" selected="selected">$text.time.clean2t</option>
+			<option value= "30240">$text.time.clean3t</option>
+			<option value= "40320">$text.time.clean4t</option>
+			<option value= "60480">$text.time.clean6t</option>
+		</select>
+		</td>
+	</tr>
+ </table>
+ <br /><small>1.) $text.clear.expl1 </small>
+ <br /><small>2.) $text.clear.expl2 </small>
+ <br />
+ <br />
+ <input type="submit" value="$text.clear.all.data" />
+ <input type="reset" value="$text.newrepo.cancel" />
+ <input type="hidden" name="method" value="garbageCollector" />
+ <br />
+</form>
+ <br />
+</div>
+#parse("footer.vm")

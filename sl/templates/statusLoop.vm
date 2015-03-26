@@ -1,0 +1,147 @@
+#* Copyright 2005-2009, German National Library
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * 
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place,
+ * Suite 330,
+ * Boston, MA 02111-1307, USA
+ *#
+
+#* Author: Kadir Karaca Kocer, German National Library *#
+
+#set($widthS=50)
+#set($width=40)
+#foreach($oaiRequest in $selectedTask.processedRequests)
+  #set($anchor = "")
+  #set($index = $index + 1)
+  <tr id="$index">
+    <td><small><a href="$oaiRequest.requestAsString" target="_blank">$oaiRequest.requestAsString</a></small></td>
+    <td><center><small>$date.format('yyyy-MM-dd HH:mm:ss',$oaiRequest.startedAt)<br />$date.format('yyyy-MM-dd HH:mm:ss',$oaiRequest.finishedAt)</small></center></td>
+    <td><center>
+         #if ($oaiRequest.status == 0)
+           <img alt="$oaiRequest.recordsHarvested $text.tasks.from $oaiRequest.totalRecords $text.tasks.sucess"
+                title="$oaiRequest.recordsHarvested $text.tasks.from $oaiRequest.totalRecords $text.tasks.sucess"
+                name="pic_Success" width="$widthS"
+                src="./icons/sSuccess.png"/>
+         #elseif ($oaiRequest.status == -13)
+           <img alt="$oaiRequest.recordsHarvested $text.tasks.from $oaiRequest.totalRecords $text.tasks.sucess"
+                title="$oaiRequest.recordsHarvested $text.tasks.from $oaiRequest.totalRecords $text.tasks.sucess"
+                name="pic_Stopped" width="$widthS"
+                src="./icons/sStoppedByUser.png"/>
+                       
+         #elseif ($oaiRequest.status == -14)
+           <img alt="$text.tasks.waitPause"
+                title="$text.tasks.waitPause"
+                name="pic_TimedOut"
+                src="./icons/sTimedOut.png" width="$widthS" />
+                
+         #elseif ($oaiRequest.status == -41)
+           <img alt="$text.tasks.nonetwork"
+                title="$text.tasks.nonetwork"
+                name="pic_HTTPError"
+                src="./icons/sHTTPError.png" width="$widthS" />
+                
+         #elseif ($oaiRequest.status == -42)
+           <img alt="$text.tasks.httperr"
+                title="$text.tasks.httperr"
+                name="pic_HTTPnot200"
+                src="./icons/sResponseNot200.png" width="$widthS" />
+                
+         #elseif ($oaiRequest.status == -43)
+           <img alt="$text.tasks.oaierr"
+                title="$text.tasks.oaierr"
+                name="pic_OAIError"
+                src="./icons/sInvalidOAIresponse.png" width="$widthS" />
+                
+         #elseif ($oaiRequest.status == -44)
+           <img alt="$text.tasks.mderr"
+                title="$text.tasks.mderr"
+                name="pic_ValidationError"
+                src="./icons/sMetadataValidationError.png" width="$widthS" />
+                
+         #elseif ($oaiRequest.status == -45)
+           <img alt="$text.tasks.ioerr"
+                title="$text.tasks.ioerr"
+                name="pic_IOError"
+                src="./icons/sIOError.png" width="$widthS" />
+                
+         #elseif ($oaiRequest.status == -46)
+           <img alt="$text.tasks.exporterr"
+                title="$text.tasks.exporterr"
+                name="pic_DataExportError"
+                src="./icons/sExportError.png" width="$widthS" />
+                
+         #elseif ($oaiRequest.status == -51)
+           <img alt="$text.tasks.err"
+                title="$text.tasks.err"
+                name="pic_RuntimeException"
+                src="./icons/sRuntimeException.png" width="$widthS" />
+                
+         #elseif ($oaiRequest.status == -52)
+           <img alt="$text.tasks.unknownerr"
+                title="$text.tasks.unknownerr"
+                name="pic_Exception"
+                src="./icons/sException.png" width="$widthS" />
+                
+         #else
+           <img alt="$text.tasks.errcommon" alt="$text.tasks.errcommon" name="pic_UnknownError"
+                src="./icons/sUnknownError.png" width="$widthS" />
+        #end
+        </center>    
+    </td>
+    
+    <td><center>
+    <!-- 4 icons for 4 defined actions -->
+      <!-- Restart an existing request -->
+      <a href="index.htm?method=restartRequest&taskId=$selectedTask.taskId&requestId=$oaiRequest.requestId" >
+       <img alt="$text.tasks.again" title="$text.tasks.again" name="pic_Restart"
+            src="./icons/cResendRequest.png" width="$width" />
+      </a>
+      
+      <!-- Show Exception Message (if any)-->
+      #if ($oaiRequest.exceptionMessage.length() > 0)
+       <a href="index.htm?method=showExceptionMessage&taskId=$selectedTask.taskId&requestId=$oaiRequest.requestId" target="_blank">
+        <img alt="$text.tasks.viewerr" title="$text.tasks.viewerr" name="pic_ExceptionMessage"
+             src="./icons/cBugReportCO.png" width="$width" />
+       </a>
+      #else
+       <img alt="$text.tasks.noviewerr" title="$text.tasks.noviewerr" name="pic_NoExceptionMessage"
+            src="./icons/cBugReportBW.png" width="$width" />
+      #end
+      
+      <!-- Show Server Response (if saved)-->
+      #if ($selectedTask.saveResponse)
+       <a href="index.htm?method=showServerResponse&taskId=$selectedTask.taskId&requestId=$oaiRequest.requestId" target="_blank">
+        <img alt="$text.errpage.origresp" title="$text.errpage.origresp"
+             name="pic_ServerResponse" src="./icons/cServerResponseCO.png" width="$width" />
+       </a>
+      #else
+       <img alt="$text.tasks.norespsett"
+            title="$text.tasks.norespsett"
+            name="pic_NoServerResponse" src="./icons/cServerResponseBW.png" width="$width" />
+      #end
+      
+      <!-- Delete this Request from the list -->
+      #if ($index > 15)
+        #set ($anchor = "#" + ($index - 5))
+      #end
+      <a href="index.htm?method=deleteOldRequest&taskId=$selectedTask.taskId&requestId=$oaiRequest.requestId&src=$src$anchor" >
+       <img alt="$text.tasks.removeFromlist" title="$text.tasks.removeFromlist"
+            name="pic_DeleteRequest" src="./icons/cDelete.png" width="$width" />
+      </a>
+      </center>
+    </td>
+  </tr>
+ #end

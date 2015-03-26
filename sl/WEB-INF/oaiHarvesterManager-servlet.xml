@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!--
+	- Application context definition for "springapp" DispatcherServlet.
+-->
+<beans>
+
+	<bean id="oaiHarvesterManagerController"
+		class="de.dnb.oai.webapp.OaiHarvesterManagerController">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+				<property name="paramName">
+					<value>method</value>
+				</property>
+				<property name="defaultMethodName">
+					<value>showTasks</value>
+				</property>
+			</bean>
+		</property>
+		<property name="delegate">
+			<ref bean="oaiHarvesterManagerDelegate" />
+		</property>
+	</bean>
+
+	<bean id="oaiHarvesterManagerDelegate"
+		class="de.dnb.oai.webapp.OaiHarvesterManagerGui">
+		<property name="manager">
+			<ref bean="oaiHarvesterManager" />
+		</property>
+	</bean>
+
+	<bean id="defaultController"
+		class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+	<!--
+		View resolvers can also be configured with ResourceBundles or XML
+		files. If you need different view resolving based on Locale, you
+		have to use the resource bundle resolver.
+	-->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="cache" value="true" />
+		<property name="prefix" value="" />
+		<property name="suffix" value=".vm" />
+		<property name="contentType">
+			<value>text/html;charset=UTF-8</value>
+		</property>
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="dateToolAttribute" value="dateTool" />
+		<property name="toolboxConfigLocation" value="WEB-INF/velocity-toolbox.xml" />
+	</bean>
+
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="*.htm">oaiHarvesterManagerController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="config/application.properties" />
+	</bean>
+</beans>
